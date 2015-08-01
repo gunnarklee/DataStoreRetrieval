@@ -5,7 +5,7 @@ Part 1.1 Grab files from S3 and store in collection titled db_tweets
 
 '''
 
-import os, pymongo, json
+import os, pymongo, json, gzip
 from boto.s3.key import Key
 from boto.s3.connection import S3Connection
 print "Paste your own AWS keys before using\n"
@@ -37,10 +37,10 @@ bucket_list = myBucket.list()
 
 
 print "downloading new files locally\n"
-print "like this: s3_oldfilename.alignment_data"
+print "like this: s3_oldfilename.fastq.gz"
 for l in bucket_list[0:10]: # this indexing doesn't seem to work, still prints everything
     print l
-    if str(l.key).endswith(".alignment_data"):
+    if str(l.key).endswith(".fastq.gz"):
         keyString = str(l.key)
         if not os.path.exists(wkdir + "s3_" + keyString):
             fname = wkdir + "s3_" + keyString

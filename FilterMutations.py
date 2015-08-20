@@ -7,9 +7,9 @@ def FilterMutations(Align, SkipCt1, ref, hdCt2):
     # the metadata appears to be getting in the way of dataframe construciton so i skip it for now
     #capture mtadata somewhere
     # skiprows to deal with metadata this needs to be dealt with, so that I dont loose lines
-    print SkipCt1
+    #print SkipCt1
     Person1=pd.read_table(Align, skiprows=SkipCt1)
-    print hdCt2
+    #print hdCt2
     MutFile=pd.read_table(ref, skiprows=hdCt2, low_memory=False)
 
     Person1_fx=fixDATA(Person1)
@@ -17,9 +17,8 @@ def FilterMutations(Align, SkipCt1, ref, hdCt2):
 
     FiltList=pd.merge(Person1_fx, MutFile_fx, on=['Mut'], how='inner')
     FiltList.head()
-    return FiltList
-    print 'Align'+'Ref'
-    to_csv("test101", FiltList)
+    fileNm= Align+ref
+    pd.to_csv(fileNm, FiltList)
 
 # fix column names
 def fixDATA (df):
